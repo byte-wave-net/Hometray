@@ -3,14 +3,13 @@
   MSIX manifest for the Microsoft Store build (build-msix.bat / -p:Packaged=true).
   The normal build (build.bat) stays unpackaged and ignores this file.
 
-  !!! BEFORE THE FIRST UPLOAD: replace the Identity values below with the ones from
-  Partner Center (Produktverwaltung → Produktidentität) after reserving the name "Hometray":
+  !!! The Identity values below are PLACEHOLDERS. To build a package for your own Store account,
+  replace them with the ones from Partner Center (Product management → Product identity):
     Name                  = "Package/Identity/Name"
     Publisher             = "Package/Identity/Publisher"
     PublisherDisplayName  = "Package/Properties/PublisherDisplayName"
   Name and Publisher must match Partner Center exactly, otherwise the upload is rejected.
-  (Publisher is the ID of the Byte-Wave developer account, the same as for Audio-Tray; the Name
-  below is only the expected pattern "<Publisher name without spaces>.<product name>".)
+  (Name is "<Publisher name without spaces>.<product name>", Publisher is "CN=<ID of your developer account>".)
 -->
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -20,8 +19,8 @@
   IgnorableNamespaces="uap desktop rescap">
 
   <Identity
-    Name="Byte-WaveGmbH.Hometray"
-    Publisher="CN=2F69159B-FDB8-4628-B7F0-5155E6021CD7"
+    Name="YourPublisher.Hometray"
+    Publisher="CN=00000000-0000-0000-0000-000000000000"
     Version="1.0.0.0" />
 
   <Properties>

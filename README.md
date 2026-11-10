@@ -141,8 +141,6 @@ Framework-Paket, das der Store automatisch mitinstalliert).
 | `Hometray/Package.appxmanifest` | Paket-Manifest (Identität, Sprachen, Startaufgabe, Fähigkeiten) |
 | `Hometray/Assets/Package/` | Kachel- und Store-Logos, aus `Assets/icon.svg` erzeugt |
 | `build-msix.bat`, `msix-test-cert.ps1` | Paket bauen / Testzertifikat für den Modus `test` |
-| `StoreListing.md` | Texte für Partner Center (Deutsch, English) und Hinweise für die Zertifizierung |
-| `PRIVACY.md` | Datenschutzerklärung (Pflicht im Store, als Webseite veröffentlichen und die URL eintragen) |
 
 **Vor dem ersten Hochladen (Partner Center):**
 
@@ -150,10 +148,10 @@ Framework-Paket, das der Store automatisch mitinstalliert).
    `Package.appxmanifest` eintragen: `Identity/Name`, `Identity/Publisher`, `PublisherDisplayName`. Die aktuellen Werte
    sind nur Platzhalter nach dem Muster von Audio-Tray; stimmen sie nicht exakt, wird der Upload abgelehnt.
 2. Version vor jedem weiteren Upload erhöhen (`Identity/Version`, das letzte Segment bleibt `0`).
-3. Datenschutz-URL, Altersfreigabe (IARC), Preis, mindestens einen Screenshot und die Texte aus `StoreListing.md` eintragen.
-4. Unter *Hinweise für die Zertifizierung* einen **erreichbaren Test-Home-Assistant mit Zugriffstoken** angeben (Vorlage
-   in `StoreListing.md`) – ohne einen solchen kann die Prüfung die App nicht bedienen.
-5. Die eingeschränkte Fähigkeit `runFullTrust` begründen (Win32-Infobereichssymbol, siehe Vorlage).
+3. Datenschutzerklärung (Text oder URL), Altersfreigabe (IARC), Preis, mindestens einen Screenshot und die Store-Texte eintragen.
+4. Unter *Hinweise für die Zertifizierung* einen **erreichbaren Test-Home-Assistant mit Zugriffstoken** angeben – ohne
+   einen solchen kann die Prüfung die App nicht bedienen.
+5. Die eingeschränkte Fähigkeit `runFullTrust` begründen (Win32-Infobereichssymbol).
 
 **Unterschiede der Store-Version:** Autostart läuft über die Windows-Startaufgabe `HometrayStartup` (statt Registry-Eintrag;
 Windows kann sie in *Einstellungen → Apps → Autostart* abschalten). Das Symbol kann die App nicht selbst in der
