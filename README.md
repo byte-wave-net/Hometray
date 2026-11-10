@@ -171,3 +171,15 @@ neu erzeugt werden.
 - Nur HTTP(S) mit gültigem Zertifikat bzw. unverschlüsselt im LAN; selbstsignierte Zertifikate werden abgelehnt
 - Das MSIX-Paket ist gebaut und strukturell geprüft, aber noch nicht auf einem Rechner installiert und mit dem
   Zertifizierungskit (WACK) getestet
+
+## Lizenz
+
+Copyright © 2026 Byte-Wave GmbH
+
+Hometray ist freie Software unter der **GNU General Public License v3.0** (siehe [LICENSE](LICENSE)): Du darfst sie nutzen,
+ändern und weitergeben. Gibst du eine geänderte Version weiter, muss sie ebenfalls unter der GPL stehen und ihr Quellcode
+verfügbar sein.
+
+Mitgelieferte Komponenten von Dritten (.NET, Windows App SDK und weitere NuGet-Pakete) behalten ihre eigenen Lizenzen.
+
+Hometray ist eine unabhängige App und steht in keiner Verbindung zu Home Assistant oder Nabu Casa.
