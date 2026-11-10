@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>Hometray</RootNamespace>
+    <AssemblyName>Hometray</AssemblyName>
+    <Product>Hometray</Product>
+    <AssemblyTitle>Hometray</AssemblyTitle>
+    <Description>Home Assistant im Infobereich der Taskleiste</Description>
+    <Company>Byte-Wave GmbH</Company>
+    <Authors>Tobias Oberle</Authors>
+    <Copyright>© Byte-Wave GmbH</Copyright>
+    <Version>1.0.0.0</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'x64'">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' == 'ARM64'">win-arm64</RuntimeIdentifier>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- keep the output of the other build flavour (normal / MSIX) out of the item globs -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin\**;obj\**;bin-msix\**;obj-msix\**;AppPackages\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <!-- Normal build (build.bat): unpackaged, runs directly from the output folder -->
+  <PropertyGroup Condition="'$(Packaged)' != 'true'">
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+  </PropertyGroup>
+
+  <!-- Microsoft Store build (build-msix.bat): MSIX with Package.appxmanifest; the Windows App SDK
+       is a framework package the Store installs automatically. -->
+  <PropertyGroup Condition="'$(Packaged)' == 'true'">
+    <WindowsPackageType>MSIX</WindowsPackageType>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+    <!-- keep MinVersion / MaxVersionTested of Package.appxmanifest -->
+    <AppxAddDefaultTargetDeviceFamilyItem>false</AppxAddDefaultTargetDeviceFamilyItem>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250205002" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+    <!-- tray icon rendering -->
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <!-- access token is stored DPAPI-encrypted (current user) -->
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Assets\**" />
+    <Content Include="Assets\app.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\appicon.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\about-wave.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Packaged)' == 'true'">
+    <Content Include="Assets\Package\*.png" />
+  </ItemGroup>
+</Project>

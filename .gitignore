@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+*.user
+build.log
+bin-msix/
+obj-msix/
+AppPackages/
+build-msix.log
+
+# Microsoft Store material, kept local (listings, privacy text, graphics, generators)
+Storeassets/
+StoreAssets/
+StoreListing.md

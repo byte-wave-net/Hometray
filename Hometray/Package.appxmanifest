@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MSIX manifest for the Microsoft Store build (build-msix.bat / -p:Packaged=true).
+  The normal build (build.bat) stays unpackaged and ignores this file.
+
+  !!! BEFORE THE FIRST UPLOAD: replace the Identity values below with the ones from
+  Partner Center (Produktverwaltung → Produktidentität) after reserving the name "Hometray":
+    Name                  = "Package/Identity/Name"
+    Publisher             = "Package/Identity/Publisher"
+    PublisherDisplayName  = "Package/Properties/PublisherDisplayName"
+  Name and Publisher must match Partner Center exactly, otherwise the upload is rejected.
+  (Publisher is the ID of the Byte-Wave developer account, the same as for Audio-Tray; the Name
+  below is only the expected pattern "<Publisher name without spaces>.<product name>".)
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap desktop rescap">
+
+  <Identity
+    Name="Byte-WaveGmbH.Hometray"
+    Publisher="CN=2F69159B-FDB8-4628-B7F0-5155E6021CD7"
+    Version="1.0.0.0" />
+
+  <Properties>
+    <DisplayName>Hometray</DisplayName>
+    <PublisherDisplayName>Byte-Wave GmbH</PublisherDisplayName>
+    <Logo>Assets\Package\StoreLogo.png</Logo>
+    <!-- Settings (%AppData%\Hometray) stay in the package's private, virtualized AppData and disappear
+         with the uninstall. Nothing is written to places other programs read. -->
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <!-- Languages of the app (see Loc.cs); the first one is the fallback. The app switches its own texts. -->
+  <Resources>
+    <Resource Language="en-US" />
+    <Resource Language="de-DE" />
+    <Resource Language="es-ES" />
+    <Resource Language="zh-CN" />
+    <Resource Language="ru-RU" />
+    <Resource Language="pt-BR" />
+    <Resource Language="it-IT" />
+    <Resource Language="sv-SE" />
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="Hometray"
+        Description="Home Assistant in the notification area: tiles for your devices, control lights, covers, climate and more with one click."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Package\Square150x150Logo.png"
+        Square44x44Logo="Assets\Package\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Package\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\Package\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- "Start with Windows" (replaces the HKCU\...\Run entry of the unpackaged build) -->
+        <desktop:Extension
+          Category="windows.startupTask"
+          Executable="Hometray.exe"
+          EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="HometrayStartup" Enabled="false" DisplayName="Hometray" />
+        </desktop:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <!-- Desktop (WinUI 3) app: runs as a full-trust process -->
+    <rescap:Capability Name="runFullTrust" />
+    <!-- connection to the user's Home Assistant (Nabu Casa / internet) and in the home network -->
+    <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
+  </Capabilities>
+</Package>
